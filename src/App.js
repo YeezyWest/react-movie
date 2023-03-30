@@ -1,21 +1,51 @@
-import { useState,useEffect } from "react";
 import "./App.css";
+import SearchIcon from "./search.svg";
+import { useEffect } from "react";
 
+const API_URL = "http://www.omdbapi.com?apikey=7751be12";
+
+const movie1 = {
+  Title: "Amazing Spiderman Syndrome",
+  Year: "2012",
+  imdbID: "tt2586634",
+  Type: "movie",
+  Poster: "N/A",
+};
 
 const App = () => {
+  const searchMovies = async (title) => {
+    const response = await fetch(`${API_URL}&s=${title}`);
+    const data = await response.json();
 
-  const [counter, setCounter] = useState(0);
+    console.log(data.Search);
+  };
 
   useEffect(() => {
-    alert("you change " + counter);
-  },[counter]);
+    searchMovies("spiderman");
+  }, []);
 
   return (
-    <div className="App">
-     <button onClick={()=> setCounter((prevCount) => prevCount -1)}>-</button>
-     <h1>{counter}</h1>
-     <button onClick={()=> setCounter((prevCount) => prevCount +1)}>+</button>
-     
+    <div className="app">
+      <h1>Mr'West West Movies </h1>
+
+      <div className="search">
+        <input
+          type="search"
+          placeholder="search for movies"
+          value="Superman"
+          onChange={() => {}}
+        />
+
+        <img src={SearchIcon} alt="search" onClick={() => {}} />
+      </div>
+
+      <div className="container">
+        <div className="movie">
+          <div>
+            <p>{movie1.Year}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
